@@ -105,8 +105,8 @@ Social-media/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/thakare18/Social-media.git
-cd Social-media
+git clone https://github.com/riyanshi2817/SocialMediaApp.git
+cd SocialMediaApp
 ```
 
 ---
@@ -168,6 +168,4 @@ npm run dev
 
 ---
 
-**Prathamesh Thakare**
-GitHub: [https://github.com/thakare18](https://github.com/thakare18)
-mail : prathamthackeray18@gmail.com
+
