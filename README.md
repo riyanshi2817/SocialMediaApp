@@ -5,7 +5,7 @@
 
 The **Social Media Caption Generator** is a full-stack MERN application designed to generate AI-based captions for social media images. The project integrates cloud-based image handling with generative AI services to deliver meaningful and context-aware captions.
 
-The backend architecture and core integrations are implemented, and the **frontend is currently under active development**.
+The backend architecture, React frontend, authentication, post history, and core integrations are implemented.
 
 ---
 
@@ -16,7 +16,7 @@ The backend architecture and core integrations are implemented, and the **fronte
 * Backend APIs implemented and functional
 * Image upload and optimization via ImageKit completed
 * Caption generation logic integrated
-* **Frontend development in progress**
+* React frontend available under `client/`
 
 This repository is actively maintained, and features are being incrementally added to the user interface.
 
@@ -34,7 +34,7 @@ This repository is actively maintained, and features are being incrementally add
 
 ## Tech Stack
 
-### Frontend (In Progress)
+### Frontend
 
 * React.js
 * JavaScript (ES6+)
@@ -69,19 +69,23 @@ This repository is actively maintained, and features are being incrementally add
 ```
 Social-media/
 │
-├── client/                 # React frontend (under development)
+├── client/                 # React/Vite frontend
 │   ├── src/
 │   └── public/
 │
-├── server/                 # Node.js backend
-│   ├── controllers/
-│   ├── routes/
-│   ├── models/
-│   ├── middleware/
-│   └── index.js
+├── server/                 # Node.js/Express backend
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── db/
+│   │   ├── middlewares/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   └── services/
+│   ├── server.js
+│   ├── package.json
+│   └── .env.example
 │
-├── .env                    # Environment variables
-├── package.json
+├── .gitignore
 └── README.md
 ```
 
@@ -118,6 +122,7 @@ Create a `.env` file in the `server` directory:
 
 ```env
 PORT=5000
+CLIENT_ORIGIN=http://localhost:5173
 MONGO_URI=your_mongodb_connection_string
 IMAGEKIT_PUBLIC_KEY=your_imagekit_public_key
 IMAGEKIT_PRIVATE_KEY=your_imagekit_private_key
@@ -133,15 +138,13 @@ npm start
 
 ---
 
-### 3. Frontend Setup (Work in Progress)
+### 3. Frontend Setup
 
 ```bash
 cd client
 npm install
-npm start
+npm run dev
 ```
-
-Note: The frontend is currently being developed. Some features or UI components may be incomplete or subject to change.
 
 ---
 
