@@ -9,11 +9,13 @@ const userSchema = new mongoose.Schema({
         minlength: 3,
         maxlength: 50
     },
+    name: { type: String, trim: true, maxlength: 100 },
     password: {
         type: String,
         required: true,
         minlength: 6
-    }
+    },
+    following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }]
 }, {
     timestamps: true
 });

@@ -14,3 +14,8 @@ client/dist/
 
 .postman/
 postman/
+
+# Temporary Playwright artifacts
+.playwright-cli/
+.tmp-*.png
+.tmp-*.js

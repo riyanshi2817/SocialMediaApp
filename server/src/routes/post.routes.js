@@ -6,11 +6,17 @@ const { allowedMimeTypes } = require('../services/storage.service');
 const {
     createPostController,
     getPostsController,
+    getFeedController,
+    getExploreController,
+    getSavedPostsController,
     getPostController,
+    setLikeController,
+    setSaveController,
     updatePostController,
     deletePostController,
     getSummaryController
 } = require('../controllers/post.controller');
+const { listComments, addComment, deleteComment } = require('../controllers/comment.controller');
 
 const upload = multer({
     storage: multer.memoryStorage(),
@@ -28,6 +34,16 @@ const upload = multer({
 router.get('/', authMiddleware, getPostsController);
 router.post('/', authMiddleware, upload.single('image'), createPostController);
 router.get('/summary', authMiddleware, getSummaryController);
+router.get('/feed', authMiddleware, getFeedController);
+router.get('/explore', authMiddleware, getExploreController);
+router.get('/saved', authMiddleware, getSavedPostsController);
+router.post('/:id/like', authMiddleware, setLikeController);
+router.delete('/:id/like', authMiddleware, setLikeController);
+router.post('/:id/save', authMiddleware, setSaveController);
+router.delete('/:id/save', authMiddleware, setSaveController);
+router.get('/:id/comments', authMiddleware, listComments);
+router.post('/:id/comments', authMiddleware, addComment);
+router.delete('/:id/comments/:commentId', authMiddleware, deleteComment);
 router.get('/:id', authMiddleware, getPostController);
 router.patch('/:id', authMiddleware, updatePostController);
 router.delete('/:id', authMiddleware, deletePostController);

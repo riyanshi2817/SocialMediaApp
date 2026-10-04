@@ -4,13 +4,14 @@ import { useAuth } from '../context/AuthContext';
 
 function AuthForm({ mode }) {
   const isLogin = mode === 'login';
-  const { user, login, register } = useAuth();
+  const { user, loading, login, register } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [form, setForm] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
 
+  if (loading) return <div className="screen-state">Checking your session...</div>;
   if (user) return <Navigate to="/" replace />;
   async function submit(event) {
     event.preventDefault(); setError(''); setBusy(true);

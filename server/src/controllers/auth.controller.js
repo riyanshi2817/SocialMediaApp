@@ -2,12 +2,16 @@ const UserModel = require('../models/user.model');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-const getCookieOptions = () => ({
-    httpOnly: true,
-    sameSite: 'lax',
-    secure: process.env.NODE_ENV === 'production',
-    maxAge: 7 * 24 * 60 * 60 * 1000
-});
+const getCookieOptions = () => {
+    const isProduction = process.env.NODE_ENV === 'production';
+
+    return {
+        httpOnly: true,
+        sameSite: isProduction ? 'none' : 'lax',
+        secure: isProduction,
+        maxAge: 7 * 24 * 60 * 60 * 1000
+    };
+};
 
 const createToken = (userId) => {
     if (!process.env.JWT_SECRET) {
@@ -18,7 +22,7 @@ const createToken = (userId) => {
 };
 
 async function registerController(req, res) {
-    const { username, password } = req.body;
+    const { username, password } = req.body || {};
 
     if (typeof username !== 'string' || typeof password !== 'string' || !username || !password) {
         return res.status(400).json({
@@ -71,6 +75,9 @@ async function registerController(req, res) {
             }
         });
     } catch (error) {
+        if (error.code === 11000) {
+            return res.status(409).json({ success: false, message: 'User already exists' });
+        }
         console.error('Register error:', error.message);
         return res.status(500).json({
             success: false,
@@ -80,9 +87,9 @@ async function registerController(req, res) {
 }
 
 async function loginController(req, res) {
-    const { username, password } = req.body;
+    const { username, password } = req.body || {};
 
-    if (!username || !password) {
+    if (typeof username !== 'string' || typeof password !== 'string' || !username || !password) {
         return res.status(400).json({
             success: false,
             message: 'Username and password are required'
@@ -138,11 +145,8 @@ async function loginController(req, res) {
 }
 
 async function logoutController(req, res) {
-    res.clearCookie('token', {
-        httpOnly: true,
-        sameSite: 'lax',
-        secure: process.env.NODE_ENV === 'production'
-    });
+    const { maxAge, ...cookieOptions } = getCookieOptions();
+    res.clearCookie('token', cookieOptions);
 
     return res.status(200).json({
         success: true,

@@ -7,7 +7,7 @@ STATUS: BLOCKED
 
 BUILD:
   Backend : PASS — npm start launches via node server.js; PORT from env; graceful exit on DB fail.
-  Frontend: PASS — dist/ exists; npm run build passed in Phase 9 (PHASE9_STATUS.md line 75).
+  Frontend: PASS — dist/ exists; npm run build passed in Phase 9 (../phases/PHASE9_STATUS.md line 75).
 
 BACKEND:
   PASS — Express 5, cookie-parser, CORS, dotenv, Mongoose, multer, JWT all present.
@@ -35,14 +35,14 @@ SECURITY:
 DEPLOYMENT BLOCKERS:
   BLOCKER 1 — server/ and client/ directories are UNTRACKED in Git.
     All source files show ?? in git status. Nothing in these dirs has been committed.
-    Fix: git add server/ client/ PHASE*_STATUS.md && git commit -m "feat: add full-stack source"
+    Fix: git add server/ client/ docs/phases/PHASE*_STATUS.md && git commit -m "feat: add full-stack source"
   BLOCKER 2 — client/.env.example has VITE_API_URL=http://localhost:3001/api (dev value).
     Fix: Set real production backend URL in Vercel/Netlify env vars before deploying frontend.
   BLOCKER 3 — CLIENT_ORIGIN in server/.env.example still shows http://localhost:5173.
     Fix: Update to live frontend domain in backend hosting platform env vars.
 
 NEXT STEPS:
-  1. git add server/ client/ PHASE*_STATUS.md README.md .gitignore
+  1. git add server/ client/ docs/phases/PHASE*_STATUS.md README.md .gitignore
      git commit -m "feat: add full-stack source and phase status docs"
   2. git push origin main
   3. Deploy backend to Railway or Render:
